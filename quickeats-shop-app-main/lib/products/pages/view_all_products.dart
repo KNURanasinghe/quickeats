@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/custom_widgets/back_button.dart'; 
+import 'package:shop_app/custom_widgets/back_button.dart';
 import 'package:shop_app/orders/pages/view_all_orders.dart';
 import 'package:shop_app/products/custom_widgets/display_products_widget.dart';
 import 'package:shop_app/products/pages/add_products.dart';
@@ -59,10 +59,12 @@ class _ViewAllProductsState extends State<ViewAllProducts> {
           _isLoading = true;
         });
         String? message = await productProvider.getAllProducts();
+        print('Message from getAllProducts: $message');
+        print('Products length: ${productProvider.products.length}');
         setState(() {
           _isLoading = false;
         });
-        if (message != 'Products retrieved successfully') {
+        if (message != 'Food items retrieved successfully') {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -104,9 +106,9 @@ class _ViewAllProductsState extends State<ViewAllProducts> {
         elevation: 0,
         automaticallyImplyLeading: false,
         leading: SizedBox(
-       width: kToolbarHeight,
-         height: kToolbarHeight,
-        child: Center(child: CustomBackArrow(isExitNeeded: true)),
+          width: kToolbarHeight,
+          height: kToolbarHeight,
+          child: Center(child: CustomBackArrow(isExitNeeded: true)),
         ),
       ),
       body: SingleChildScrollView(
@@ -115,7 +117,8 @@ class _ViewAllProductsState extends State<ViewAllProducts> {
           child: Column(
             children: [
               if (_isLoading) ...[
-                const Center(child: CircularProgressIndicator(color: Colors.black))
+                const Center(
+                    child: CircularProgressIndicator(color: Colors.black))
               ],
               if (productProvider.products.isEmpty)
                 const Center(

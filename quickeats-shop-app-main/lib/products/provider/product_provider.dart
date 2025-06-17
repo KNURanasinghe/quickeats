@@ -70,7 +70,7 @@ class ProductProvider with ChangeNotifier {
 
     var response = await apiService.postRequest(
         url: '${ApiConstants.baseUrl}/foods', body: product.toJson());
-
+    print('add product res $response    ${ApiConstants.baseUrl}/foods');
     if (response != null) {
       ProductResponse productResponse = ProductResponse.fromJson(response);
       message = productResponse.message;
@@ -135,10 +135,12 @@ class ProductProvider with ChangeNotifier {
     String? message;
     var response =
         await apiService.getRequest(url: '${ApiConstants.baseUrl}/foods');
+    print('get all products res $response    ${ApiConstants.baseUrl}/foods');
     if (response != null) {
       ProductResponse productResponse = ProductResponse.fromJson(response);
       message = productResponse.message;
-      if (productResponse.message == 'Products retrieved successfully') {
+      if (productResponse.message == 'Food items retrieved successfully') {
+        print('Products retrieved: ${productResponse.productData.length}');
         products = productResponse.productData;
         notifyListeners();
       }

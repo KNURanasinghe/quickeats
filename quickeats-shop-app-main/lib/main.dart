@@ -94,6 +94,7 @@ void main() async {
   String? token;
   AuthorizationProvider authorizationProvider = AuthorizationProvider();
   message = await FirebaseMessaging.instance.getInitialMessage();
+  print('Initial message: $message');
   await NotificationService().initializeNotifications();
   if (await Permission.notification.isDenied) {
     await Permission.notification.request();
@@ -101,7 +102,9 @@ void main() async {
   await LocationServices().requestPermission();
   if (message == null) {
     token = sharedPreferences.getString('token');
+    print('Token from SharedPreferences: $token');
   }
+  token = sharedPreferences.getString('token');
 
   // Get verification status
   bool? isVerified = sharedPreferences.getBool('verification status');
